@@ -1,0 +1,9 @@
+﻿# Pastas e arquivos desnecessários do Visual Studio
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.db
+*.vsidx
+*.lock.json
