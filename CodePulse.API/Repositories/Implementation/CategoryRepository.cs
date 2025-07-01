@@ -25,4 +25,9 @@ public class CategoryRepository : ICategoryRepository
   {
     return await dbContext.Categories.ToListAsync();
   }
+
+    public async Task<Category?> GetById(Guid id)
+    {
+        return await dbContext.Categories.FirstOrDefaultAsync(x => x.Id == id);
+    }
 }

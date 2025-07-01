@@ -19,7 +19,7 @@ public class CategoriesController : ControllerBase
 
   //
   [HttpPost]
-  public async Task<IActionResult> CreateCategory(CreateCategoryRequestDto request)
+  public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryRequestDto request)
   {
     // Map DTO to Domain Model
 
@@ -65,4 +65,24 @@ public class CategoriesController : ControllerBase
         
 
   }
+
+    //GET: http://localhost:5261/api/categories/{id}
+    [HttpGet]
+    [Route("{id:Guid}")]
+    public async Task<IActionResult> GetCategoryById([FromRoute]Guid id)    {
+        var existingCategory = await categoryRepository.GetById(id);
+
+        if (existingCategory is null) {
+            return NotFound();
+        }
+
+        var response = new CategoryDto
+        {
+            Id = existingCategory.Id,
+            Name = existingCategory.Name,
+            UrlHandle = existingCategory.UrlHandle
+        };
+
+        return Ok(response);
+    }
 }
