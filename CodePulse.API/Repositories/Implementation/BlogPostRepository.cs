@@ -15,13 +15,13 @@ public class BlogPostRepository : IBlogPostRepository
 
     public async Task<BlogPost> CreateAsync(BlogPost blogPost)
     {
-        await dbContext.AddAsync(blogPost);
+        await dbContext.BlogPosts.AddAsync(blogPost);
         await dbContext.SaveChangesAsync();
         return blogPost;
     }
 
     public async Task<IEnumerable<BlogPost>> GetAllAsync()
     {
-        return await dbContext.BlogPosts.ToListAsync();
+        return await dbContext.BlogPosts.Include(x => x.Categories).ToListAsync();
     }
 }
